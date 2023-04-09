@@ -8,6 +8,6 @@ public class Test {
     
     @RequestMapping(value = "/")
     public String test() {
-        return "Hello world and change jf any change in it";
+        return "Hello world! I have deployed my first Spring Boot application through github actions!";
     }
 }
