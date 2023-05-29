@@ -1,14 +1,10 @@
-# Use a base image with Java 17 installed
-FROM adoptopenjdk:17-jdk-hotspot
-
-# Set the working directory inside the container
+FROM maven:3.8.3-openjdk-17 AS build
 WORKDIR /app
+COPY . /app/
+RUN mvn clean package
 
-# Copy the Spring Boot application JAR file into the container
-COPY target/demo.jar /app/demo.jar
-
-# Expose the port on which your Spring Boot application listens
+FROM openjdk:17-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar /app/app.jar
 EXPOSE 8080
-
-# Set the entry point for the container
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
