@@ -15,4 +15,8 @@ public class Test {
     public String welcome() {
         return "Welcome to my first Spring Boot application!";
     }
+    @GetMapping("/hi")
+    public String hi(){
+        return "hi";
+    }
 }
